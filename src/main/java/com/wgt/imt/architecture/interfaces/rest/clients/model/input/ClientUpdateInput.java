@@ -1,5 +1,7 @@
 package com.wgt.imt.architecture.interfaces.rest.clients.model.input;
 
+import com.wgt.imt.architecture.business.clients.model.Client;
+import com.wgt.imt.architecture.business.common.model.GenreEnum;
 import com.wgt.imt.architecture.interfaces.rest.common.model.input.AbstractUpdateInput;
 import com.wgt.imt.architecture.interfaces.rest.common.model.input.UpdatableProperty;
 import lombok.EqualsAndHashCode;
@@ -14,6 +16,14 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class ClientUpdateInput extends AbstractUpdateInput {
+
+    public static Client from(final ClientUpdateInput input, final Client alreadySaved) {
+        return alreadySaved.toBuilder()
+                .lastname(input.getLastname().defaultIfNotOverwrite(alreadySaved.getLastname()))
+                .firstname(input.getFirstname().defaultIfNotOverwrite(alreadySaved.getFirstname()))
+                .genre(input.getGenre().defaultIfNotOverwrite(GenreEnum::fromOrDefault, alreadySaved.getGenre()))
+                .build();
+    }
 
     @Serial
     private static final long serialVersionUID = -6190479828349200043L;

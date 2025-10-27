@@ -1,5 +1,7 @@
 package com.wgt.imt.architecture.interfaces.rest.comptes.model.input;
 
+import com.wgt.imt.architecture.business.common.model.TypeCompteEnum;
+import com.wgt.imt.architecture.business.comptes.model.Compte;
 import com.wgt.imt.architecture.interfaces.rest.common.model.input.AbstractUpdateInput;
 import com.wgt.imt.architecture.interfaces.rest.common.model.input.UpdatableProperty;
 import lombok.EqualsAndHashCode;
@@ -14,6 +16,15 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class CompteUpdateInput extends AbstractUpdateInput {
+
+    public static Compte from(final CompteUpdateInput input, final Compte alreadySaved) {
+        return Compte.builder()
+                .identifier(alreadySaved.getIdentifier())
+                .name(input.getName().defaultIfNotOverwrite(alreadySaved.getName()))
+                .solde(input.getSolde().defaultIfNotOverwrite(alreadySaved.getSolde()))
+                .type(input.getType().defaultIfNotOverwrite(TypeCompteEnum::fromOrDefault, alreadySaved.getType()))
+                .build();
+    }
 
     @Serial
     private static final long serialVersionUID = -6069802379242271752L;

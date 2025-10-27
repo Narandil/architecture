@@ -1,5 +1,6 @@
 package com.wgt.imt.architecture.interfaces.rest.clients.model.output;
 
+import com.wgt.imt.architecture.business.clients.model.Client;
 import com.wgt.imt.architecture.interfaces.rest.common.model.output.AbstractOutput;
 import lombok.*;
 
@@ -11,6 +12,15 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class ClientOutput extends AbstractOutput {
+
+    public static ClientOutput from(final Client client){
+        return ClientOutput.builder()
+                .identifier(client.getIdentifier().toString())
+                .lastname(client.getLastname())
+                .firstname(client.getFirstname())
+                .genre(client.getGenre().name())
+                .build();
+    }
 
     @Serial
     private static final long serialVersionUID = -5881478654611574936L;
