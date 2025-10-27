@@ -72,7 +72,7 @@ class ClientGenreValidatorStepTest {
 
             // When & Then
             BadRequestException exception = assertThrows(BadRequestException.class,
-                () -> validator.check(client));
+                    () -> validator.check(client));
 
             assertTrue(exception.getMessage().contains("genre"));
             assertTrue(exception.getMessage().contains(GenreEnum.ACCEPTABLE_VALUES));

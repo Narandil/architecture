@@ -9,10 +9,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * Mapper pour convertir entre les objets métier Compte et les entités CompteEntity.
+ *
+ * @author Emmanuel WAGUET
+ * @version 1.0
+ */
 @Service
 @AllArgsConstructor
 public class CompteBddMapper extends AbstractBddMapper<Compte, CompteEntity> {
 
+    /**
+     * Convertit une entité CompteEntity en objet métier Compte.
+     *
+     * @param input l'entité de base de données à convertir
+     * @return l'objet métier Compte correspondant
+     */
     @Override
     public Compte from(final CompteEntity input) {
         return Compte.builder()
@@ -23,6 +35,12 @@ public class CompteBddMapper extends AbstractBddMapper<Compte, CompteEntity> {
                 .build();
     }
 
+    /**
+     * Convertit un objet métier Compte en entité CompteEntity.
+     *
+     * @param object l'objet métier à convertir
+     * @return l'entité de base de données correspondante
+     */
     @Override
     public CompteEntity to(final Compte object) {
         return CompteEntity.builder()

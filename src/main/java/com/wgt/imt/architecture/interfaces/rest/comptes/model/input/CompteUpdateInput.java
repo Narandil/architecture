@@ -17,6 +17,12 @@ import java.io.Serial;
 @ToString
 public class CompteUpdateInput extends AbstractUpdateInput {
 
+    @Serial
+    private static final long serialVersionUID = -6069802379242271752L;
+    private UpdatableProperty<String> name = UpdatableProperty.empty();
+    private UpdatableProperty<String> type = UpdatableProperty.empty();
+    private UpdatableProperty<Double> solde = UpdatableProperty.empty();
+
     public static Compte from(final CompteUpdateInput input, final Compte alreadySaved) {
         return Compte.builder()
                 .identifier(alreadySaved.getIdentifier())
@@ -25,12 +31,6 @@ public class CompteUpdateInput extends AbstractUpdateInput {
                 .type(input.getType().defaultIfNotOverwrite(TypeCompteEnum::fromOrDefault, alreadySaved.getType()))
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = -6069802379242271752L;
-    private UpdatableProperty<String> name = UpdatableProperty.empty();
-    private UpdatableProperty<String> type = UpdatableProperty.empty();
-    private UpdatableProperty<Double> solde = UpdatableProperty.empty();
 
     public void setName(final String name) {
         this.name = UpdatableProperty.makesChanges(name);

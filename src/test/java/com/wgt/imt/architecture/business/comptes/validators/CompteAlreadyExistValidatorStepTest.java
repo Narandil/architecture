@@ -14,7 +14,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -82,7 +85,7 @@ class CompteAlreadyExistValidatorStepTest {
                     .lastname("Dupont")
                     .firstname("Jean")
                     .genre(GenreEnum.HOMME)
-                    .comptes(new HashSet<>(Arrays.asList(existingCompte)))
+                    .comptes(new HashSet<>(Collections.singletonList(existingCompte)))
                     .build();
 
             when(clientsBddService.get(clientUUID)).thenReturn(Optional.of(client));
@@ -110,17 +113,17 @@ class CompteAlreadyExistValidatorStepTest {
                     .lastname("Dupont")
                     .firstname("Jean")
                     .genre(GenreEnum.HOMME)
-                    .comptes(new HashSet<>(Arrays.asList(existingCompte)))
+                    .comptes(new HashSet<>(Collections.singletonList(existingCompte)))
                     .build();
 
             when(clientsBddService.get(clientUUID)).thenReturn(Optional.of(client));
 
             // When & Then
             ConflictException exception = assertThrows(ConflictException.class,
-                () -> validator.check(newCompte));
+                    () -> validator.check(newCompte));
 
             assertTrue(exception.getMessage().contains("Mon_Compte") ||
-                       exception.getMessage().contains("MON_COMPTE"));
+                    exception.getMessage().contains("MON_COMPTE"));
             assertTrue(exception.getMessage().contains(clientUUID.toString()));
             verify(clientsBddService, times(1)).get(clientUUID);
         }
@@ -144,7 +147,7 @@ class CompteAlreadyExistValidatorStepTest {
                     .lastname("Dupont")
                     .firstname("Jean")
                     .genre(GenreEnum.HOMME)
-                    .comptes(new HashSet<>(Arrays.asList(existingCompte)))
+                    .comptes(new HashSet<>(Collections.singletonList(existingCompte)))
                     .build();
 
             when(clientsBddService.get(clientUUID)).thenReturn(Optional.of(client));
@@ -172,7 +175,7 @@ class CompteAlreadyExistValidatorStepTest {
                     .lastname("Dupont")
                     .firstname("Jean")
                     .genre(GenreEnum.HOMME)
-                    .comptes(new HashSet<>(Arrays.asList(existingCompte)))
+                    .comptes(new HashSet<>(Collections.singletonList(existingCompte)))
                     .build();
 
             when(clientsBddService.get(clientUUID)).thenReturn(Optional.of(client));

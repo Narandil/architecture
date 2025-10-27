@@ -103,7 +103,7 @@ class ClientsBddServiceTest {
         @DisplayName("Devrait retourner tous les clients")
         void shouldReturnAllClients() {
             // Given
-            List<ClientEntity> entities = Arrays.asList(testClientEntity);
+            List<ClientEntity> entities = Collections.singletonList(testClientEntity);
             when(clientRepository.findAll()).thenReturn(entities);
             when(clientBddMapper.from(testClientEntity)).thenReturn(testClient);
 
@@ -223,7 +223,7 @@ class ClientsBddServiceTest {
         void shouldThrowNullPointerExceptionWhenClientIsNull() {
             // When & Then
             assertThrows(NullPointerException.class,
-                () -> clientsBddService.save(null));
+                    () -> clientsBddService.save(null));
 
             verify(clientRepository, never()).save(any());
         }

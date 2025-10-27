@@ -12,7 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,7 +53,7 @@ class ClientsServiceTest {
         @DisplayName("Devrait retourner tous les clients")
         void shouldReturnAllClients() {
             // Given
-            Collection<Client> clients = Arrays.asList(testClient);
+            Collection<Client> clients = Collections.singletonList(testClient);
             when(clientsBddService.getAll()).thenReturn(clients);
 
             // When

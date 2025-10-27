@@ -16,6 +16,12 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class ClientInput extends AbstractInput {
+    @Serial
+    private static final long serialVersionUID = -6256916847598118362L;
+    private String lastname;
+    private String firstname;
+    private String genre;
+
     public static Client convert(final ClientInput input) {
         return Client.builder()
                 .identifier(UUID.randomUUID())
@@ -24,10 +30,4 @@ public class ClientInput extends AbstractInput {
                 .genre(GenreEnum.fromOrDefault(input.getGenre()))
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = -6256916847598118362L;
-    private String lastname;
-    private String firstname;
-    private String genre;
 }

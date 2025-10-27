@@ -15,21 +15,20 @@ public class UpdatableProperty<T extends Serializable> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -1013314571672626519L;
-
-    public static <T extends Serializable> UpdatableProperty<T> empty() {
-        return new UpdatableProperty<>(false, null);
-    }
-
-    public static <T extends Serializable> UpdatableProperty<T> makesChanges(final T newValue){
-        return new UpdatableProperty<>(true, newValue);
-    }
-
     @Getter(AccessLevel.PROTECTED)
     @EqualsAndHashCode.Exclude
     private final boolean updated;
     private final T value;
 
-    public T defaultIfNotOverwrite(final T defaultValue){
+    public static <T extends Serializable> UpdatableProperty<T> empty() {
+        return new UpdatableProperty<>(false, null);
+    }
+
+    public static <T extends Serializable> UpdatableProperty<T> makesChanges(final T newValue) {
+        return new UpdatableProperty<>(true, newValue);
+    }
+
+    public T defaultIfNotOverwrite(final T defaultValue) {
         return this.isUpdated()
                 ? this.getValue()
                 : defaultValue;
@@ -42,7 +41,7 @@ public class UpdatableProperty<T extends Serializable> implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.isUpdated()
                 ? String.format("UpdatableProperty[%s]", this.getValue())
                 : "UpdatableProperty.empty";

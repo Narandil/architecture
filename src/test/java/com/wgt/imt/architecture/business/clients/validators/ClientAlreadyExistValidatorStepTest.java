@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -68,7 +68,7 @@ class ClientAlreadyExistValidatorStepTest {
                     .genre(GenreEnum.HOMME)
                     .build();
 
-            when(clientsBddService.getAll()).thenReturn(Arrays.asList(existingClient));
+            when(clientsBddService.getAll()).thenReturn(Collections.singletonList(existingClient));
 
             // When & Then
             assertDoesNotThrow(() -> validator.check(newClient));
@@ -90,11 +90,11 @@ class ClientAlreadyExistValidatorStepTest {
                     .genre(GenreEnum.HOMME)
                     .build();
 
-            when(clientsBddService.getAll()).thenReturn(Arrays.asList(existingClient));
+            when(clientsBddService.getAll()).thenReturn(Collections.singletonList(existingClient));
 
             // When & Then
             ConflictException exception = assertThrows(ConflictException.class,
-                () -> validator.check(newClient));
+                    () -> validator.check(newClient));
 
             assertTrue(exception.getMessage().contains("DUPONT"));
             assertTrue(exception.getMessage().contains("JEAN"));
@@ -117,7 +117,7 @@ class ClientAlreadyExistValidatorStepTest {
                     .genre(GenreEnum.FEMME)
                     .build();
 
-            when(clientsBddService.getAll()).thenReturn(Arrays.asList(existingClient));
+            when(clientsBddService.getAll()).thenReturn(Collections.singletonList(existingClient));
 
             // When & Then
             assertThrows(ConflictException.class, () -> validator.check(newClient));
@@ -139,7 +139,7 @@ class ClientAlreadyExistValidatorStepTest {
                     .genre(GenreEnum.FEMME)
                     .build();
 
-            when(clientsBddService.getAll()).thenReturn(Arrays.asList(existingClient));
+            when(clientsBddService.getAll()).thenReturn(Collections.singletonList(existingClient));
 
             // When & Then
             assertDoesNotThrow(() -> validator.check(newClient));

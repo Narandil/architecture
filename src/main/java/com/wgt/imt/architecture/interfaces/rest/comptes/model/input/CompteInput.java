@@ -17,6 +17,11 @@ import java.util.UUID;
 @ToString
 public class CompteInput extends AbstractInput {
 
+    @Serial
+    private static final long serialVersionUID = -790440597537439877L;
+    private String name;
+    private String type;
+
     public static Compte convert(final CompteInput compteInput) {
         return Compte.builder()
                 .identifier(UUID.randomUUID())
@@ -25,9 +30,4 @@ public class CompteInput extends AbstractInput {
                 .solde(0.0)
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = -790440597537439877L;
-    private String name;
-    private String type;
 }

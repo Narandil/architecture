@@ -13,7 +13,14 @@ import java.io.Serial;
 @ToString
 public class ClientOutput extends AbstractOutput {
 
-    public static ClientOutput from(final Client client){
+    @Serial
+    private static final long serialVersionUID = -5881478654611574936L;
+    private final String identifier;
+    private final String lastname;
+    private final String firstname;
+    private final String genre;
+
+    public static ClientOutput from(final Client client) {
         return ClientOutput.builder()
                 .identifier(client.getIdentifier().toString())
                 .lastname(client.getLastname())
@@ -21,11 +28,4 @@ public class ClientOutput extends AbstractOutput {
                 .genre(client.getGenre().name())
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = -5881478654611574936L;
-    private final String identifier;
-    private final String lastname;
-    private final String firstname;
-    private final String genre;
 }

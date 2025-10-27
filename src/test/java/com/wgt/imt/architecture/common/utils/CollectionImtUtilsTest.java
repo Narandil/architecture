@@ -4,7 +4,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,7 +77,7 @@ class CollectionImtUtilsTest {
         @DisplayName("Devrait ajouter plusieurs éléments à une collection non vide")
         void shouldAppendMultipleElementsToNonEmptyCollection() {
             // Given
-            Collection<String> source = Arrays.asList("element1");
+            Collection<String> source = List.of("element1");
             String element2 = "element2";
             String element3 = "element3";
 
@@ -128,7 +131,7 @@ class CollectionImtUtilsTest {
         @DisplayName("Devrait ajouter une collection d'éléments à une collection non vide")
         void shouldAppendCollectionToNonEmptyCollection() {
             // Given
-            Collection<String> source = Arrays.asList("element1");
+            Collection<String> source = List.of("element1");
             Collection<String> toAdd = Arrays.asList("element2", "element3");
 
             // When
@@ -146,7 +149,7 @@ class CollectionImtUtilsTest {
         @DisplayName("Devrait ajouter une collection vide à une collection non vide")
         void shouldAppendEmptyCollectionToNonEmptyCollection() {
             // Given
-            Collection<String> source = Arrays.asList("element1");
+            Collection<String> source = List.of("element1");
             Collection<String> toAdd = Collections.emptyList();
 
             // When

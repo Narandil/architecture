@@ -13,6 +13,13 @@ import java.io.Serial;
 @ToString
 public class ComptesOutput extends AbstractOutput {
 
+    @Serial
+    private static final long serialVersionUID = 7079932239043880351L;
+    private final String identifier;
+    private final String name;
+    private final String type;
+    private final Double solde;
+
     public static ComptesOutput from(final Compte comptesOutput) {
         return ComptesOutput.builder()
                 .identifier(comptesOutput.getIdentifier().toString())
@@ -21,11 +28,4 @@ public class ComptesOutput extends AbstractOutput {
                 .solde(comptesOutput.getSolde())
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = 7079932239043880351L;
-    private final String identifier;
-    private final String name;
-    private final String type;
-    private final Double solde;
 }

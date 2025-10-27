@@ -9,12 +9,29 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Publisher pour les événements de compte avec solde négatif.
+ * Publie un événement lorsqu'un compte passe en solde négatif.
+ *
+ * @author Emmanuel WAGUET
+ * @version 1.0
+ */
 @Service
 @AllArgsConstructor
 public class MouvementCompteEventPublisher {
+    /**
+     * Publisher d'événements Spring
+     */
     private final ApplicationEventPublisher publisher;
 
-    public void accept(final UUID clientIdentifier, final Compte compte){
+    /**
+     * Publie l'événement lorsqu'un mouvement est détecté.
+     *
+     * @param clientIdentifier l'identifiant du client propriétaire du compte
+     * @param compte           le compte à vérifier
+     * @throws NullPointerException si clientIdentifier ou compte est null
+     */
+    public void accept(final UUID clientIdentifier, final Compte compte) {
         Objects.requireNonNull(clientIdentifier, "Impossible de vérifier un compte avec un clientIdentifier nul");
         Objects.requireNonNull(compte, "Impossible de vérifier un compte nul");
 
