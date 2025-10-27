@@ -1,6 +1,10 @@
 package com.wgt.imt.architecture.business.comptes;
 
+import com.wgt.imt.architecture.business.clients.model.Client;
 import com.wgt.imt.architecture.business.comptes.model.Compte;
+import com.wgt.imt.architecture.common.utils.CollectionImtUtils;
+import com.wgt.imt.architecture.infrastructures.bdd.clients.ClientsBddService;
+import com.wgt.imt.architecture.interfaces.rest.common.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +14,47 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class ComptesService {
-    final Map<UUID, Compte> comptes = new HashMap<>();
+    private final ClientsBddService service;
 
     public Collection<Compte> getAllFilteredByClient(final UUID clientIdentifier) {
-        return Objects.requireNonNullElse(this.comptes.values(), Collections.<Compte>emptySet()).stream()
-                .filter(compte -> Objects.equals(compte.getClientIdentifier(), clientIdentifier))
-                .collect(Collectors.toSet());
+        return this.service.get(clientIdentifier).map(Client::getComptes).orElse(Collections.emptySet());
     }
 
     public Optional<Compte> getOneFilteredByClient(final UUID clientIdentifier, final UUID identifier) {
-        return Optional.ofNullable(this.comptes.get(identifier))
-                .filter(compte -> Objects.equals(compte.getClientIdentifier(), clientIdentifier));
+        return this.service.get(clientIdentifier)
+                .map(Client::getComptes)
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(compte -> Objects.equals(compte.getIdentifier(), identifier))
+                .findFirst();
     }
 
     public Compte create(final UUID clientIdentifier, final Compte newCompte) {
-        this.comptes.put(newCompte.getIdentifier(), newCompte);
+        final Client client = this.service.get(clientIdentifier).orElseThrow(() -> new NotFoundException(String.format("Le client %s n'existe pas", clientIdentifier)));
+        this.service.save(client.toBuilder().comptes(CollectionImtUtils.append(client.getComptes(), newCompte)).build());
         return newCompte;
     }
 
     public void update(final UUID clientIdentifier, final Compte updatedCompte) {
-        this.comptes.put(updatedCompte.getIdentifier(), updatedCompte);
+        final Client client = this.service.get(clientIdentifier).orElseThrow(() -> new NotFoundException(String.format("Le client %s n'existe pas", clientIdentifier)));
+        this.service.save(
+                client.toBuilder().comptes(CollectionImtUtils.append(
+                        Objects.requireNonNullElse(client.getComptes(), Collections.<Compte>emptySet())
+                                .stream()
+                                .filter(compte -> !Objects.equals(compte.getIdentifier(), updatedCompte.getIdentifier()))
+                                .collect(Collectors.toSet()),
+                        updatedCompte
+                )).build()
+        );
     }
 
     public void delete(final UUID clientIdentifier, final UUID identifier) {
-        this.comptes.remove(identifier);
+        final Client client = this.service.get(clientIdentifier).orElseThrow(() -> new NotFoundException(String.format("Le client %s n'existe pas", clientIdentifier)));
+        this.service.save(client.toBuilder().comptes(
+                Objects.requireNonNullElse(client.getComptes(), Collections.<Compte>emptySet())
+                        .stream()
+                        .filter(compte -> !Objects.equals(compte.getIdentifier(), identifier))
+                        .collect(Collectors.toSet())
+        ).build());
     }
 }
