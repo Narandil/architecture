@@ -1,6 +1,7 @@
 package com.wgt.imt.architecture.interfaces.rest.clients;
 
 import com.wgt.imt.architecture.business.clients.ClientsService;
+import com.wgt.imt.architecture.business.clients.ClientsServiceValidator;
 import com.wgt.imt.architecture.business.clients.model.Client;
 import com.wgt.imt.architecture.interfaces.rest.clients.model.input.ClientInput;
 import com.wgt.imt.architecture.interfaces.rest.clients.model.input.ClientUpdateInput;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("api/imt/v1/clients")
 public class ClientsController {
-    private final ClientsService service;
+    private final ClientsServiceValidator service;
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,7 @@
 package com.wgt.imt.architecture.interfaces.rest.comptes;
 
 import com.wgt.imt.architecture.business.comptes.ComptesService;
+import com.wgt.imt.architecture.business.comptes.ComptesServiceValidator;
 import com.wgt.imt.architecture.business.comptes.model.Compte;
 import com.wgt.imt.architecture.interfaces.rest.comptes.model.input.CompteInput;
 import com.wgt.imt.architecture.interfaces.rest.comptes.model.input.CompteUpdateInput;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("api/imt/v1/clients/{idClient}/comptes")
 public class ComptesController {
-    private final ComptesService service;
+    private final ComptesServiceValidator service;
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

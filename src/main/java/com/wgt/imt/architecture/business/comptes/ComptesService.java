@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class ComptesService {
-    private final ClientsBddService service;
+    protected final ClientsBddService service;
 
     public Collection<Compte> getAllFilteredByClient(final UUID clientIdentifier) {
         return this.service.get(clientIdentifier).map(Client::getComptes).orElse(Collections.emptySet());
