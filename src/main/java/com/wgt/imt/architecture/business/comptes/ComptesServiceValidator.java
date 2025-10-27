@@ -5,6 +5,7 @@ import com.wgt.imt.architecture.business.comptes.model.Compte;
 import com.wgt.imt.architecture.business.comptes.validators.CompteAlreadyExistValidatorStep;
 import com.wgt.imt.architecture.business.comptes.validators.CompteTypeValidatorStep;
 import com.wgt.imt.architecture.infrastructures.bdd.clients.ClientsBddService;
+import com.wgt.imt.architecture.infrastructures.events.comptes.MouvementCompteEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,8 +13,8 @@ import java.util.*;
 @Service
 public class ComptesServiceValidator extends ComptesService {
 
-    public ComptesServiceValidator(final ClientsBddService service) {
-        super(service);
+    public ComptesServiceValidator(final ClientsBddService service, final MouvementCompteEventPublisher mouvementPublisher) {
+        super(service, mouvementPublisher);
     }
 
     public Compte create(final UUID clientIdentifier, final Compte newCompte) {
