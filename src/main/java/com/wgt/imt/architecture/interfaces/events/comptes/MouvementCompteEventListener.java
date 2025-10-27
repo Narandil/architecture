@@ -7,12 +7,28 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+/**
+ * Écouteur d'événements pour les mouvements de compte.
+ * L'exécution est asynchrone pour ne pas bloquer le traitement principal.
+ *
+ * @author Emmanuel WAGUET
+ * @version 1.0
+ */
 @Service
 @AllArgsConstructor
 public class MouvementCompteEventListener implements ApplicationListener<MouvementCompteEvent> {
 
+    /**
+     * Service métier pour la gestion des comptes
+     */
     private final ComptesService comptesService;
 
+    /**
+     * Traite l'événement de compte en appliquant des agios si nécessaire.
+     * Méthode exécutée de manière asynchrone.
+     *
+     * @param event l'événement contenant les informations du compte
+     */
     @Async
     @Override
     public void onApplicationEvent(final MouvementCompteEvent event) {

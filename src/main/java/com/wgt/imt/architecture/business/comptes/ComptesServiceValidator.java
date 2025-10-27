@@ -8,7 +8,7 @@ import com.wgt.imt.architecture.infrastructures.bdd.clients.ClientsBddService;
 import com.wgt.imt.architecture.infrastructures.events.comptes.MouvementCompteEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.UUID;
 
 @Service
 public class ComptesServiceValidator extends ComptesService {

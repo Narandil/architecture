@@ -14,11 +14,27 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Mapper pour convertir entre les objets métier Client et les entités ClientEntity.
+ * Gère également la conversion des comptes associés.
+ *
+ * @author Emmanuel WAGUET
+ * @version 1.0
+ */
 @Service
 @AllArgsConstructor
 public class ClientBddMapper extends AbstractBddMapper<Client, ClientEntity> {
+    /**
+     * Mapper pour convertir les comptes
+     */
     private CompteBddMapper compteMapper;
 
+    /**
+     * Convertit une entité ClientEntity en objet métier Client.
+     *
+     * @param input l'entité de base de données à convertir
+     * @return l'objet métier Client correspondant
+     */
     @Override
     public Client from(final ClientEntity input) {
         return Client.builder()
@@ -32,6 +48,12 @@ public class ClientBddMapper extends AbstractBddMapper<Client, ClientEntity> {
                 .build();
     }
 
+    /**
+     * Convertit un objet métier Client en entité ClientEntity.
+     *
+     * @param object l'objet métier à convertir
+     * @return l'entité de base de données correspondante
+     */
     @Override
     public ClientEntity to(final Client object) {
         return ClientEntity.builder()

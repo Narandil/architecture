@@ -99,7 +99,7 @@ class MouvementCompteEventPublisherTest {
 
             // When & Then
             assertThrows(NullPointerException.class,
-                () -> mouvementCompteEventPublisher.accept(null, compte));
+                    () -> mouvementCompteEventPublisher.accept(null, compte));
 
             verify(eventPublisher, never()).publishEvent(any());
         }
@@ -109,7 +109,7 @@ class MouvementCompteEventPublisherTest {
         void shouldThrowNullPointerExceptionWhenCompteIsNull() {
             // When & Then
             assertThrows(NullPointerException.class,
-                () -> mouvementCompteEventPublisher.accept(clientUUID, null));
+                    () -> mouvementCompteEventPublisher.accept(clientUUID, null));
 
             verify(eventPublisher, never()).publishEvent(any());
         }

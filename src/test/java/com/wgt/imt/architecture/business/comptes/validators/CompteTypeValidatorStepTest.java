@@ -72,7 +72,7 @@ class CompteTypeValidatorStepTest {
 
             // When & Then
             BadRequestException exception = assertThrows(BadRequestException.class,
-                () -> validator.check(compte));
+                    () -> validator.check(compte));
 
             assertTrue(exception.getMessage().contains("type"));
             assertTrue(exception.getMessage().contains(TypeCompteEnum.ACCEPTABLE_VALUES));

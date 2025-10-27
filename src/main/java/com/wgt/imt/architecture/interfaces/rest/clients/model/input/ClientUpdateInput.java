@@ -17,6 +17,12 @@ import java.io.Serial;
 @ToString
 public class ClientUpdateInput extends AbstractUpdateInput {
 
+    @Serial
+    private static final long serialVersionUID = -6190479828349200043L;
+    private UpdatableProperty<String> lastname = UpdatableProperty.empty();
+    private UpdatableProperty<String> firstname = UpdatableProperty.empty();
+    private UpdatableProperty<String> genre = UpdatableProperty.empty();
+
     public static Client from(final ClientUpdateInput input, final Client alreadySaved) {
         return alreadySaved.toBuilder()
                 .lastname(input.getLastname().defaultIfNotOverwrite(alreadySaved.getLastname()))
@@ -24,12 +30,6 @@ public class ClientUpdateInput extends AbstractUpdateInput {
                 .genre(input.getGenre().defaultIfNotOverwrite(GenreEnum::fromOrDefault, alreadySaved.getGenre()))
                 .build();
     }
-
-    @Serial
-    private static final long serialVersionUID = -6190479828349200043L;
-    private UpdatableProperty<String> lastname = UpdatableProperty.empty();
-    private UpdatableProperty<String> firstname = UpdatableProperty.empty();
-    private UpdatableProperty<String> genre = UpdatableProperty.empty();
 
     public void setLastname(final String lastname) {
         this.lastname = UpdatableProperty.makesChanges(lastname);

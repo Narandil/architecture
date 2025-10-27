@@ -58,7 +58,7 @@ class ComptesServiceTest {
                 .lastname("Dupont")
                 .firstname("Jean")
                 .genre(GenreEnum.HOMME)
-                .comptes(new HashSet<>(Arrays.asList(testCompte)))
+                .comptes(new HashSet<>(Collections.singletonList(testCompte)))
                 .build();
     }
 
@@ -200,7 +200,7 @@ class ComptesServiceTest {
 
             // When & Then
             NotFoundException exception = assertThrows(NotFoundException.class,
-                () -> comptesService.create(clientUUID, newCompte));
+                    () -> comptesService.create(clientUUID, newCompte));
 
             assertTrue(exception.getMessage().contains(clientUUID.toString()));
             verify(clientsBddService, times(1)).get(clientUUID);
@@ -254,7 +254,7 @@ class ComptesServiceTest {
 
             // When & Then
             assertThrows(NotFoundException.class,
-                () -> comptesService.update(clientUUID, testCompte));
+                    () -> comptesService.update(clientUUID, testCompte));
 
             verify(clientsBddService, times(1)).get(clientUUID);
             verify(clientsBddService, never()).save(any(Client.class));
@@ -288,7 +288,7 @@ class ComptesServiceTest {
 
             // When & Then
             assertThrows(NotFoundException.class,
-                () -> comptesService.applyAgios(clientUUID, compteUUID));
+                    () -> comptesService.applyAgios(clientUUID, compteUUID));
 
             verify(clientsBddService, times(1)).get(clientUUID);
             verify(clientsBddService, never()).save(any(Client.class));
@@ -346,7 +346,7 @@ class ComptesServiceTest {
 
             // When & Then
             assertThrows(NotFoundException.class,
-                () -> comptesService.delete(clientUUID, compteUUID));
+                    () -> comptesService.delete(clientUUID, compteUUID));
 
             verify(clientsBddService, times(1)).get(clientUUID);
             verify(clientsBddService, never()).save(any(Client.class));
