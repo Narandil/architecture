@@ -14,6 +14,10 @@ public enum TypeCompteEnum {
     }
 
     public static Optional<TypeCompteEnum> from(final String name) {
-        return Optional.ofNullable(name).map(TypeCompteEnum::valueOf);
+        try {
+            return Optional.ofNullable(name).map(TypeCompteEnum::valueOf);
+        } catch (final IllegalArgumentException e){
+            return Optional.empty();
+        }
     }
 }

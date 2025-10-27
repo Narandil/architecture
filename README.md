@@ -43,3 +43,7 @@ Exercices :
 
         PS : En supplément, nous pourrions créer un deuxième écrivain qui enverrait l'historique des opérations sur les comptes 
         et un écrivain qui stockerai ça dans la BDD
+
+    6 - Ajout des TU / TI
+        Le développement de notre application touche a sa fin, nous allons maintenant faire les TU pour s'assurer de la non regression
+        de notre application lors des prochains développements

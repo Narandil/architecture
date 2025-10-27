@@ -14,7 +14,11 @@ public enum GenreEnum {
     }
 
     public static Optional<GenreEnum> from(final String name){
-        return Optional.ofNullable(name)
-                .map(GenreEnum::valueOf);
+        try {
+            return Optional.ofNullable(name)
+                    .map(GenreEnum::valueOf);
+        } catch (final IllegalArgumentException e){
+            return Optional.empty();
+        }
     }
 }
